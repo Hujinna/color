@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>网页换肤</title>
+    <style>
+        li {
+            list-style: none;
+            display: inline-block;
+        }
+        
+        li div {
+            position: relative;
+            width: 16px;
+            height: 16px;
+            margin: 18px 5px;
+        }
+        
+        #div {
+            width: 600px;
+            margin: 0px auto;
+        }
+        
+        legend {
+            color: red;
+            font-size: xx-large;
+        }
+        
+        fieldset {
+            width: 600px;
+            height: 300px;
+        }
+        
+        #colors {
+            width: 550px;
+            height: 50px;
+            margin: 50px auto;
+            border: 1px solid slategrey;
+            position: relative;
+        }
+        
+        #text {
+            width: 550px;
+            height: 70px;
+            margin: 50px auto;
+            background: slategray;
+        }
+        
+        #color1 {
+            top: -5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="div">
+        <fieldset>
+            <legend>网页换肤</legend>
+            <div id="colors">
+                <div id="list">
+                    <li>
+                        <div id="color1" onclick="changeColor(this)" style="background:slategray"></div>
+                    </li>
+                    <li>
+                        <div id="color2" onclick="changeColor(this)" style="background:turquoise"></div>
+                    </li>
+                    <li>
+                        <div id="color3" onclick="changeColor(this)" style="background:burlywood"></div>
+                    </li>
+                    <li>
+                        <div id="color4" onclick="changeColor(this)" style="background:yellowgreen"></div>
+                    </li>
+                    <li>
+                        <div id="color5" onclick="changeColor(this)" style="background:violet"></div>
+                    </li>
+                    <li>
+                        <div id="color6" onclick="changeColor(this)" style="background:purple"></div>
+                    </li>
+                </div>
+            </div>
+            <div id="text">LocalStorage将数据保存在客户端本地的硬件设备中，即使浏览器被关闭了，该数据仍然存在，下次打开浏览器访问网站时仍然可以继续使用。</div>
+        </fieldset>
+    </div>
+    <script>
+        var text = document.getElementById("text");
+        var color1 = document.getElementById("color1");
+        console.log(localStorage.pagecount);
+        if (Number(localStorage.pagecount) == 0) {
+            localStorage.setItem("div", color1.id);
+            localStorage.setItem("newcolor", color1.style.backgroundColor);
+            text.style.backgroundColor = color1.style.backgroundColor;
+            color1.style.top = -5 + "px";
+        }
+        window.onload = function() {
+            var div = document.getElementById(localStorage.getItem("div"));
+            color1.style.top = 0 + 'px';
+            text.style.backgroundColor = localStorage.getItem("newcolor");
+            div.style.top = -5 + 'px';
+        }
+
+        function changeColor(that) {
+            var color = that.style.backgroundColor;
+            var div = document.getElementById(localStorage.getItem("div"));
+            div.style.top = 0 + 'px';
+            localStorage.clear();
+            text.style.backgroundColor = color;
+            that.style.top = -5 + 'px';
+            localStorage.setItem("newcolor", color);
+            localStorage.setItem("div", that.id);
+        }
+    </script>
+</body>
+
+</html>
